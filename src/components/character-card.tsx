@@ -116,8 +116,14 @@ export const CharacterCard = ({
 							</Dialog.Header>
 							<Dialog.Body>
 								<Stack align="start" direction={["column", "row"]}>
-									<Box flex={1}>
-										<Image asChild aspectRatio="1" borderRadius="md" alt={name}>
+									<Box flex={1} w="100%">
+										<Image
+											asChild
+											aspectRatio="1"
+											borderRadius="md"
+											alt={name}
+											width="100%"
+										>
 											<NextImage
 												src={image}
 												alt={name}
@@ -126,7 +132,7 @@ export const CharacterCard = ({
 											/>
 										</Image>
 									</Box>
-									<Stack flex={1}>
+									<Stack flex={1} w="100%">
 										<HStack justifyContent="space-between" w="100%">
 											<Heading>{name}</Heading>
 											<Badge
