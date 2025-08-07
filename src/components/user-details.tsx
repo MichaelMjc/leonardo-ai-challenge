@@ -29,6 +29,7 @@ type UserDetailsViewProps = {
  * Displays a form for editing user details and optionally redirect to the given URL after saving
  * @param username - The user's display name
  * @param jobTitle - The user's job title
+ * @param onSuccess - Callback function to be called when the form is successfully submitted
  */
 export const UserForm = ({
 	username: initialUsername,
