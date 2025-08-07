@@ -92,7 +92,6 @@ pnpm dev
 1. Navigate to the home page
 2. Enter your username and job title
 3. Save your information (stored in cookies)
-4. You will be redirected to the Rick and Morty character info page
 
 ### Character Information
 
@@ -132,22 +131,13 @@ query GetCharacters($page: Int, $filter: FilterCharacter) {
 			image
 			created
 			origin {
-				id
 				name
-				type
-				dimension
 			}
 			location {
-				id
 				name
-				type
-				dimension
 			}
 			episode {
-				id
-				name
 				episode
-				air_date
 			}
 		}
 	}
@@ -162,7 +152,7 @@ The application uses Chakra UI v3 for a modern, accessible design system:
 - **Theme Support**: Built-in dark/light mode support
 - **Accessibility**: ARIA labels and semantic HTML
 - **Loading States**: Skeleton components for better UX
-- **Form Validation**: Real-time validation with error messages
+- **Form Validation**: Validation with error messages
 
 ## 🔒 Data Persistence
 
