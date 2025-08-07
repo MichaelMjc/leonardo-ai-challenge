@@ -16,7 +16,6 @@ export const LinkListItem = ({ children, isActive }: LinkListItemProps) => {
 
 	return (
 		<List.Item
-			p={2}
 			_hover={{ bg: bgColor }}
 			borderRadius="md"
 			transition="background-color 0.2s ease-in-out"
