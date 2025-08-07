@@ -1,4 +1,4 @@
-import { UserForm } from "@/components/user-details";
+import { UserDetails } from "@/components/user-details";
 import { Box, Container, Heading } from "@chakra-ui/react";
 import { cookies } from "next/headers";
 
@@ -19,7 +19,7 @@ export default async function ProfilePage() {
 				<Heading as="h1" id="page-title" size="lg" mb={6} textAlign="center">
 					User Profile
 				</Heading>
-				<UserForm username={usernameCookie} jobTitle={jobTitleCookie} />
+				<UserDetails username={usernameCookie} jobTitle={jobTitleCookie} />
 			</Container>
 		</Box>
 	);
