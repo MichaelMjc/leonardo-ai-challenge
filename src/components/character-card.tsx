@@ -107,7 +107,7 @@ export const CharacterCard = ({
 
 				<Portal>
 					<Dialog.Backdrop />
-					<Dialog.Positioner>
+					<Dialog.Positioner p={4}>
 						<Dialog.Content>
 							<Dialog.Header>
 								<Dialog.CloseTrigger asChild>
@@ -115,7 +115,7 @@ export const CharacterCard = ({
 								</Dialog.CloseTrigger>
 							</Dialog.Header>
 							<Dialog.Body>
-								<HStack align="start">
+								<Stack align="start" direction={["column", "row"]}>
 									<Box flex={1}>
 										<Image asChild aspectRatio="1" borderRadius="md" alt={name}>
 											<NextImage
@@ -179,7 +179,7 @@ export const CharacterCard = ({
 											Gender: {gender}
 										</Text>
 									</Stack>
-								</HStack>
+								</Stack>
 							</Dialog.Body>
 						</Dialog.Content>
 					</Dialog.Positioner>
