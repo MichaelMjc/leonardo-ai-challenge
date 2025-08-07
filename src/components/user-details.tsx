@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { saveUserInfo } from "@/actions";
-import { useRouter } from "next/navigation";
 import { toaster } from "./ui/toaster";
 
 type UserDetailsProps = {
@@ -30,36 +29,22 @@ type UserDetailsViewProps = {
  * Displays a form for editing user details and optionally redirect to the given URL after saving
  * @param username - The user's display name
  * @param jobTitle - The user's job title
- * @param redirectTo - The URL to redirect to after saving
  */
 export const UserForm = ({
 	username: initialUsername,
 	jobTitle: initialJobTitle,
-	redirectTo,
+	onSuccess,
 }: UserDetailsProps & {
-	redirectTo?: string;
+	onSuccess?: () => void;
 }) => {
 	const formRef = useRef<HTMLFormElement>(null);
 	const [state, formAction, pending] = useActionState(saveUserInfo, undefined);
-	const router = useRouter();
 	const [username, setUsername] = useState(initialUsername);
 	const [jobTitle, setJobTitle] = useState(initialJobTitle);
 
 	useEffect(() => {
 		if (state?.success) {
-			if (redirectTo) {
-				router.push(redirectTo);
-			} else {
-				// Needed due to a flushSync error from chakra-ui side
-				// The alternative here would be to use the toaster.promise() method where we wrap the form action with callbacks
-				// https://github.com/vercel/next.js/discussions/67660#discussioncomment-12599544
-				setTimeout(() => {
-					toaster.success({
-						description: "User info saved successfully",
-						type: "info",
-					});
-				}, 0);
-			}
+			onSuccess?.();
 		}
 	}, [state]);
 
@@ -182,7 +167,22 @@ export const UserDetails = ({ username, jobTitle }: UserDetailsProps) => {
 
 	return (
 		<>
-			<UserForm username={username} jobTitle={jobTitle} redirectTo="/info" />
+			<UserForm
+				username={username}
+				jobTitle={jobTitle}
+				onSuccess={() => {
+					setIsEditing(false);
+					// Needed due to a flushSync error
+					// The alternative here would be to use the toaster.promise() method where we wrap the form action with callbacks
+					// https://github.com/vercel/next.js/discussions/67660#discussioncomment-12599544
+					setTimeout(() => {
+						toaster.success({
+							description: "User info saved successfully",
+							type: "info",
+						});
+					}, 0);
+				}}
+			/>
 		</>
 	);
 };
