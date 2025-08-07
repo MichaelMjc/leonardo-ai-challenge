@@ -21,7 +21,6 @@ export const LinkListItem = ({ children, isActive }: LinkListItemProps) => {
 			borderRadius="md"
 			transition="background-color 0.2s ease-in-out"
 			cursor="pointer"
-			asChild
 			aria-current={isActive}
 			aria-label={isActive ? "Current page" : "Go to page"}
 			bg={isActive ? bgColor : undefined}
