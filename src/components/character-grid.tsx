@@ -1,0 +1,172 @@
+"use client";
+
+import { useQuery } from "@apollo/client";
+import { CHARACTER_QUERY } from "./apollo";
+import {
+	Box,
+	ButtonGroup,
+	Center,
+	IconButton,
+	Pagination,
+	SimpleGrid,
+	Text,
+} from "@chakra-ui/react";
+import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
+import { useSearchParams } from "next/navigation";
+
+import { useState } from "react";
+import { Filter } from "./filter";
+import { CharacterCard, CharacterCardSkeleton } from "./character-card";
+
+export const Characters = () => {
+	const searchParams = useSearchParams();
+	const pageParam = searchParams.get("page");
+	const characterParam = searchParams.get("character");
+	const statusParam = searchParams.get("status");
+	const page = pageParam ? parseInt(pageParam) : 1;
+	const [characterFilter, setCharacterFilter] = useState<string[]>(
+		characterParam ? [characterParam] : []
+	);
+	const [statusFilter, setStatusFilter] = useState<string[]>(
+		statusParam ? [statusParam] : []
+	);
+	const { client, ...characterQuery } = useQuery(CHARACTER_QUERY, {
+		variables: {
+			page,
+			filter: {
+				name: characterFilter?.[0],
+				status: statusFilter?.[0],
+			},
+		},
+	});
+
+	const handleFilterChange = (
+		filter: "character" | "status",
+		value: string[]
+	) => {
+		const newSearchParams = new URLSearchParams(searchParams);
+		newSearchParams.delete("page");
+
+		if (filter === "character") {
+			if (value.length === 0) {
+				setCharacterFilter([]);
+				newSearchParams.delete("character");
+			} else {
+				setCharacterFilter(value);
+				newSearchParams.set("character", value[0]);
+			}
+		} else {
+			if (value.length === 0) {
+				setStatusFilter([]);
+				newSearchParams.delete("status");
+			} else {
+				setStatusFilter(value);
+				newSearchParams.set("status", value[0]);
+			}
+		}
+
+		window.history.pushState({}, "", `/info?${newSearchParams.toString()}`);
+	};
+
+	const handlePageChange = (page: number) => {
+		const newSearchParams = new URLSearchParams(searchParams);
+		newSearchParams.set("page", page.toString());
+		window.scrollTo({ top: 0, behavior: "instant" });
+		window.history.pushState({}, "", `/info?${newSearchParams.toString()}`);
+	};
+
+	return (
+		<>
+			<Filter
+				handleFilterChange={handleFilterChange}
+				characterFilter={characterFilter}
+				statusFilter={statusFilter}
+			/>
+			{characterQuery.data?.characters?.results &&
+				characterQuery.data.characters.results.length === 0 && (
+					<Box p="4">
+						<Text textAlign="center">No characters found</Text>
+					</Box>
+				)}
+			<SimpleGrid gap="6" columns={[1, 2, 3, 4]}>
+				{characterQuery.loading && (
+					<>
+						{Array.from({ length: 20 }).map((_, index) => (
+							<CharacterCardSkeleton key={`skeleton-${index}`} />
+						))}
+					</>
+				)}
+				{characterQuery.data?.characters?.results && (
+					<>
+						{characterQuery.data.characters.results.map(
+							(character, characterIndex) => (
+								<CharacterCard
+									key={`character-${characterIndex}`}
+									name={character?.name ?? "Unknown Character"}
+									image={character?.image ?? ""}
+									status={character?.status ?? "Unknown Status"}
+									origin={character?.origin?.name ?? "Unknown Origin"}
+									species={character?.species ?? "Unknown Species"}
+									gender={character?.gender ?? "Unknown Gender"}
+									location={character?.location?.name ?? "Unknown Location"}
+									episodes={character?.episode?.length ?? 0}
+								/>
+							)
+						)}
+					</>
+				)}
+			</SimpleGrid>
+			{characterQuery.data?.characters?.info && (
+				<Center p="4" pt="8">
+					<Pagination.Root
+						count={characterQuery.data.characters.info?.count ?? 0}
+						pageSize={20}
+						page={page}
+						onPageChange={(details) => {
+							handlePageChange(details.page);
+						}}
+					>
+						<ButtonGroup variant="outline" size="sm">
+							<Pagination.PrevTrigger asChild>
+								<IconButton>
+									<LuChevronLeft />
+								</IconButton>
+							</Pagination.PrevTrigger>
+
+							<Pagination.PageText display={["block", "none"]} />
+
+							<Pagination.Items
+								render={(page) => (
+									<IconButton
+										display={["none", "block"]}
+										variant={{ base: "outline", _selected: "solid" }}
+										onMouseOver={() => {
+											client.query({
+												query: CHARACTER_QUERY,
+												variables: {
+													page: page.value,
+													filter: {
+														name: characterFilter?.[0],
+														status: statusFilter?.[0],
+													},
+												},
+											});
+										}}
+									>
+										{page.value}
+									</IconButton>
+								)}
+							/>
+
+							<Pagination.NextTrigger asChild>
+								<IconButton>
+									<LuChevronRight />
+								</IconButton>
+							</Pagination.NextTrigger>
+						</ButtonGroup>
+					</Pagination.Root>
+				</Center>
+			)}
+		</>
+	);
+};
