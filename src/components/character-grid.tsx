@@ -18,6 +18,9 @@ import { useState } from "react";
 import { Filter } from "./filter";
 import { CharacterCard, CharacterCardSkeleton } from "./character-card";
 
+const UNKNOWN_CHARACTER_IMAGE =
+	"https://cdn.leonardo.ai/users/7ae5ec97-d5eb-4dc8-b62d-95189bc36453/generations/574d2a8a-d4e8-4a3d-9f0e-e59f6861b546/segments/2:4:1/Lucid_Realism_Create_a_placeholder_character_image_to_use_in_y_1.jpg";
+
 export const Characters = () => {
 	const searchParams = useSearchParams();
 	const pageParam = searchParams.get("page");
@@ -103,7 +106,7 @@ export const Characters = () => {
 								<CharacterCard
 									key={`character-${characterIndex}`}
 									name={character?.name ?? "Unknown Character"}
-									image={character?.image ?? ""}
+									image={character?.image ?? UNKNOWN_CHARACTER_IMAGE}
 									status={character?.status ?? "Unknown Status"}
 									origin={character?.origin?.name ?? "Unknown Origin"}
 									species={character?.species ?? "Unknown Species"}

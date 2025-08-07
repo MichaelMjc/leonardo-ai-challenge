@@ -6,7 +6,7 @@ const protectedUrlPatterns = protectedRoutes.map(
 	(route) => new URLPattern({ pathname: route })
 );
 
-const isProtectedRoute = (url: string, pathname: string) => {
+const isProtectedRoute = (url: string) => {
 	const isProtected = protectedUrlPatterns.some((pattern) => pattern.test(url));
 
 	return isProtected;
@@ -16,11 +16,7 @@ export function middleware(request: NextRequest) {
 	const usernameCookie = request.cookies.get("leonardo_username")?.value;
 	const jobTitleCookie = request.cookies.get("leonardo_job_title")?.value;
 
-	if (
-		!usernameCookie &&
-		!jobTitleCookie &&
-		isProtectedRoute(request.url, request.nextUrl.pathname)
-	) {
+	if (!usernameCookie && !jobTitleCookie && isProtectedRoute(request.url)) {
 		return NextResponse.redirect(new URL("/", request.url));
 	}
 

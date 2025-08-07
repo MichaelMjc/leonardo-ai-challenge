@@ -21,8 +21,14 @@ export default function NotFound() {
 					<Heading as="h1" size="2xl" textAlign="center">
 						404 Page Not Found
 					</Heading>
-					<Text textAlign="center">Oh no Morty! We're lost!</Text>
-					<Image asChild borderRadius="md" width="100%" maxW="300px">
+					<Text textAlign="center">Oh no Morty! We&apos;re lost!</Text>
+					<Image
+						asChild
+						borderRadius="md"
+						width="100%"
+						maxW="300px"
+						alt="404 not found"
+					>
 						<NextImage
 							src={NOT_FOUND_IMAGE}
 							alt="404 not found"
@@ -31,7 +37,7 @@ export default function NotFound() {
 						/>
 					</Image>
 					<Button asChild>
-						<Link href="/">Let's go back home</Link>
+						<Link href="/">Let&apos;s go back home</Link>
 					</Button>
 				</Stack>
 			</Center>

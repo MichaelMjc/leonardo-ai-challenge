@@ -66,7 +66,13 @@ export const CharacterCard = ({
 							outlineOffset: "2px",
 						}}
 					>
-						<Image asChild aspectRatio="1" borderTopRadius="md" width="100%">
+						<Image
+							asChild
+							aspectRatio="1"
+							borderTopRadius="md"
+							width="100%"
+							alt={name}
+						>
 							<NextImage src={image} alt={name} width={300} height={300} />
 						</Image>
 						<Card.Body gap="2">
@@ -111,7 +117,7 @@ export const CharacterCard = ({
 							<Dialog.Body>
 								<HStack align="start">
 									<Box flex={1}>
-										<Image asChild aspectRatio="1" borderRadius="md">
+										<Image asChild aspectRatio="1" borderRadius="md" alt={name}>
 											<NextImage
 												src={image}
 												alt={name}

@@ -1,15 +1,5 @@
-import {
-	Avatar,
-	Box,
-	Button,
-	HStack,
-	IconButton,
-	Text,
-	VisuallyHidden,
-} from "@chakra-ui/react";
+import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
 import { cookies } from "next/headers";
-import Link from "next/link";
-import { HiHome } from "react-icons/hi";
 import { Navigation } from "./navigation";
 
 export const Header = async () => {
