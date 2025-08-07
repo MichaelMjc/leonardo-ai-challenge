@@ -1,5 +1,6 @@
 import { Characters } from "@/components/character-grid";
 import { Box, Heading } from "@chakra-ui/react";
+import { Suspense } from "react";
 
 export default function InfoPage() {
 	return (
@@ -8,7 +9,9 @@ export default function InfoPage() {
 				Character Information
 			</Heading>
 			<Box as="section">
-				<Characters />
+				<Suspense>
+					<Characters />
+				</Suspense>
 			</Box>
 		</Box>
 	);

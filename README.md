@@ -27,8 +27,8 @@ A modern Next.js application built for the Leonardo AI Challenge that demonstrat
 
 ```
 src/
-├── app/                    # Next.js App Router pages
-│   ├── page.tsx           # Home page with user profile display
+├── app/                   # Next.js App Router pages
+│   ├── page.tsx           # Home page with user create form
 │   ├── info/
 │   │   └── page.tsx       # Character information page
 │   └── profile/
@@ -44,7 +44,7 @@ src/
 │   └── ui/               # UI utility components
 ├── __generated__/        # Generated GraphQL types
 ├── actions.ts            # Server actions
-├── middleware.ts         # Next.js middleware
+├── middleware.ts         # Middleware for securing pages
 └── utils/
     └── save-user.ts      # User data persistence utilities
 ```
@@ -61,7 +61,7 @@ src/
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone
 cd leonardo-ai-challenge
 ```
 
@@ -89,10 +89,10 @@ pnpm dev
 
 ### User Profile Setup
 
-1. Navigate to the Profile page (`/profile`)
+1. Navigate to the home page
 2. Enter your username and job title
 3. Save your information (stored in cookies)
-4. Your profile will be displayed on the home page
+4. You will be redirected to the Rick and Morty character info page
 
 ### Character Information
 

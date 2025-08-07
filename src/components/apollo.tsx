@@ -20,27 +20,16 @@ export const CHARACTER_QUERY = gql(`
         name
         status
         species
-        type
         gender
         image
-        created
         origin {
-          id
           name
-          type
-          dimension
         }
         location {
-          id
           name
-          type
-          dimension
         }
         episode {
-          id
-          name
           episode
-          air_date
         }
       }
     }

@@ -4,7 +4,6 @@ const nextConfig: NextConfig = {
 	experimental: {
 		optimizePackageImports: ["@chakra-ui/react"],
 	},
-	missingSuspenseWithCSRBailout: false,
 	images: {
 		domains: ["rickandmortyapi.com", "cdn.leonardo.ai"],
 	},
