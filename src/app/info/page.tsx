@@ -9,6 +9,7 @@ export default function InfoPage() {
 				Character Information
 			</Heading>
 			<Box as="section">
+				{/* Suspense is necessary here due to a next js build error for useSearchParams */}
 				<Suspense>
 					<Characters />
 				</Suspense>
