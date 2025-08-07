@@ -6,6 +6,11 @@ type LinkListItemProps = {
 	isActive: boolean;
 };
 
+/**
+ * A list item component that displays a link with optional active state
+ * @param children - The content to display inside the list item
+ * @param isActive - Whether the list item is active
+ */
 export const LinkListItem = ({ children, isActive }: LinkListItemProps) => {
 	const bgColor = useColorModeValue("gray.100", "gray.700");
 

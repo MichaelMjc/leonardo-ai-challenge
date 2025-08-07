@@ -54,6 +54,12 @@ type FilterProps = {
 	statusFilter: string[];
 };
 
+/**
+ * A filter for Rick and Morty characters and their status
+ * @param handleFilterChange - Filter change callback handler
+ * @param characterFilter - The current character filter value
+ * @param statusFilter - The current status filter value
+ */
 export const Filter = ({
 	handleFilterChange,
 	characterFilter,

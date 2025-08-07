@@ -26,6 +26,12 @@ type UserDetailsViewProps = {
 	onEdit: () => void;
 };
 
+/**
+ * Displays a form for editing user details and optionally redirect to the given URL after saving
+ * @param username - The user's display name
+ * @param jobTitle - The user's job title
+ * @param redirectTo - The URL to redirect to after saving
+ */
 export const UserForm = ({
 	username: initialUsername,
 	jobTitle: initialJobTitle,
@@ -156,6 +162,11 @@ const UserDetailsView = ({
 	);
 };
 
+/**
+ * Displays user profile information with edit functionality
+ * @param username - The user's display name
+ * @param jobTitle - The user's job title
+ */
 export const UserDetails = ({ username, jobTitle }: UserDetailsProps) => {
 	const [isEditing, setIsEditing] = useState(false);
 
