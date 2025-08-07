@@ -13,8 +13,6 @@ import {
 } from "@chakra-ui/react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import { useSearchParams } from "next/navigation";
-
-import { useState } from "react";
 import { Filter } from "./filter";
 import { CharacterCard, CharacterCardSkeleton } from "./character-card";
 import { useRouter } from "next/navigation";
@@ -29,18 +27,13 @@ export const Characters = () => {
 	const characterParam = searchParams.get("character");
 	const statusParam = searchParams.get("status");
 	const page = pageParam ? parseInt(pageParam) : 1;
-	const [characterFilter, setCharacterFilter] = useState<string[]>(
-		characterParam ? [characterParam] : []
-	);
-	const [statusFilter, setStatusFilter] = useState<string[]>(
-		statusParam ? [statusParam] : []
-	);
+
 	const { client, ...characterQuery } = useQuery(CHARACTER_QUERY, {
 		variables: {
 			page,
 			filter: {
-				name: characterFilter?.[0],
-				status: statusFilter?.[0],
+				name: characterParam,
+				status: statusParam,
 			},
 		},
 	});
@@ -54,18 +47,14 @@ export const Characters = () => {
 
 		if (filter === "character") {
 			if (value.length === 0) {
-				setCharacterFilter([]);
 				newSearchParams.delete("character");
 			} else {
-				setCharacterFilter(value);
 				newSearchParams.set("character", value[0]);
 			}
 		} else {
 			if (value.length === 0) {
-				setStatusFilter([]);
 				newSearchParams.delete("status");
 			} else {
-				setStatusFilter(value);
 				newSearchParams.set("status", value[0]);
 			}
 		}
@@ -84,8 +73,8 @@ export const Characters = () => {
 		<>
 			<Filter
 				handleFilterChange={handleFilterChange}
-				characterFilter={characterFilter}
-				statusFilter={statusFilter}
+				characterFilter={characterParam ? [characterParam] : []}
+				statusFilter={statusParam ? [statusParam] : []}
 			/>
 			{characterQuery.data?.characters?.results &&
 				characterQuery.data.characters.results.length === 0 && (
@@ -151,8 +140,8 @@ export const Characters = () => {
 												variables: {
 													page: page.value,
 													filter: {
-														name: characterFilter?.[0],
-														status: statusFilter?.[0],
+														name: characterParam,
+														status: statusParam,
 													},
 												},
 											});
