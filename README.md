@@ -1,6 +1,6 @@
 # Leonardo AI Challenge
 
-A modern Next.js application built for the Leonardo AI Challenge that demonstrates user profile management and character information display using the Rick and Morty GraphQL API.
+Leonardo AI Challenge with user profile management and character information display using the Rick and Morty GraphQL API. v3.5
 
 ## 🚀 Features
 
