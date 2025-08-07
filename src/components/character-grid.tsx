@@ -17,11 +17,13 @@ import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Filter } from "./filter";
 import { CharacterCard, CharacterCardSkeleton } from "./character-card";
+import { useRouter } from "next/navigation";
 
 const UNKNOWN_CHARACTER_IMAGE =
 	"https://cdn.leonardo.ai/users/7ae5ec97-d5eb-4dc8-b62d-95189bc36453/generations/574d2a8a-d4e8-4a3d-9f0e-e59f6861b546/segments/2:4:1/Lucid_Realism_Create_a_placeholder_character_image_to_use_in_y_1.jpg";
 
 export const Characters = () => {
+	const router = useRouter();
 	const searchParams = useSearchParams();
 	const pageParam = searchParams.get("page");
 	const characterParam = searchParams.get("character");
@@ -68,14 +70,14 @@ export const Characters = () => {
 			}
 		}
 
-		window.history.pushState({}, "", `/info?${newSearchParams.toString()}`);
+		router.push(`/info?${newSearchParams.toString()}`);
 	};
 
 	const handlePageChange = (page: number) => {
 		const newSearchParams = new URLSearchParams(searchParams);
 		newSearchParams.set("page", page.toString());
 		window.scrollTo({ top: 0, behavior: "instant" });
-		window.history.pushState({}, "", `/info?${newSearchParams.toString()}`);
+		router.push(`/info?${newSearchParams.toString()}`);
 	};
 
 	return (
